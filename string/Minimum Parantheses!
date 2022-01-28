@@ -1,1 +1,27 @@
+int Solution::solve(string a) {
 
+    stack<char> s;
+
+    int open  = 0;
+    int closed = 0;
+
+    for(int i = 0; i<a.size(); i++){
+        if(a[i] == '('){
+            s.push(a[i]);
+        }
+        else{
+
+            // 1. stack is empty
+            if(s.empty()){
+                closed++;
+            }
+            else{
+                // 1. s.pop 
+                s.pop();
+            }
+            
+        }
+    }
+
+    return s.size() + closed;
+}
