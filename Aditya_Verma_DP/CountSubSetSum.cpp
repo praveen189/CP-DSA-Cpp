@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+/*
+Time Complexity: O(sum*n), where the sum is the ‘target sum’ and ‘n’ is the size of the array.
+Auxiliary Space: O(sum*n), as the size of the 2-D array, is sum*n. 
+*/
+
+int countSubSet(vector<int> &wt, int n, int sum)
+{
+    // dp matrix
+    // bc
+    // code
+    int t[n + 1][sum + 1];
+
+    for (int i = 0; i < n + 1; i++)
+    {
+        for (int j = 0; j < sum + 1; j++)
+        {
+            if (i == 0)
+            {
+                t[i][j] = 0;
+            }
+            if (j == 0)
+            {
+                t[i][j] = 1;
+            }
+        }
+    }
+
+    // code
+    for (int i = 1; i < n + 1; i++)
+    {
+        for (int j = 1; j < sum + 1; j++)
+        {
+            if (wt[i - 1] <= j)
+            {
+                // 2 case, lo,  na lo
+                t[i][j] = ((t[i - 1][j - wt[i - 1]]) + t[i - 1][j]);
+            }
+            else
+            {
+                t[i][j] = t[i - 1][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < n + 1; i++)
+    {
+        for (int j = 0; j < sum + 1; j++)
+        {
+            cout << t[i][j] << "  ";
+        }
+        cout <<endl;
+    }
+    return t[n][sum];
+}
+int main()
+{
+    // vector<int> wt = {1,2,3,7,8,10};
+    //vector<int> wt = {2,3,5,6,8,10};
+    //int sum = 10; /// sum
+    vector<int> wt = {2, 3, 5, 6};
+    int sum = 8;
+
+    int n = wt.size();
+    cout << "No of Subset possible are: " << countSubSet(wt, n, sum);
+
+    return 0;
+}
